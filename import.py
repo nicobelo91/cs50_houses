@@ -8,7 +8,7 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 # Create database
-# open("students.db", "w").close()
+# psetopen("students.db", "w").close()
 
 # Open students.db for SQLite
 db = SQL("sqlite:///students.db")
@@ -25,13 +25,26 @@ with open(f"{sys.argv[1]}", 'r') as characters:
     # Iterate over CSV file
     for row in reader:
 
-        first = row["name"]
+        #for name in row["name"].split():
+        fullName = row["name"].split()
+
+        #first = row["name"][0]
+        #middle = row["name"][1]
+        #last = row["name"][2]
+        first = fullName[0]
         house = row["house"]
         birth = row["birth"]
 
+        count = len(fullName)
+        if count == 2:
+            middle = ""
+            last = fullName[1]
+        else:
+            middle = fullName[1]
+            last = fullName[2]
+
         #writer.writerow([row["name"], row["house"], row["birth"]])
-        db.execute("INSERT INTO students(first, house, birth) VALUES(?, ?, ?)",
-            first, house, birth)
-        #db.execute("INSERT INTO students(first, middle, last, house, birth) VALUES(?, ?, ?, ?, ?)")
-
-
+        #db.execute("INSERT INTO students(first, house, birth) VALUES(?, ?, ?)",
+        #    first, house, birth)
+        db.execute("INSERT INTO students(first, middle, last, house, birth) VALUES(?, ?, ?, ?, ?)",
+        first, middle, last, house, birth)
