@@ -8,11 +8,13 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 # Create database
-#open("students.db", "w").close()
-#db = SQL("sqlite:///students.db")
+# open("students.db", "w").close()
 
-# Create tables
-#db.execute("INSERT")
+# Open students.db for SQLite
+db = SQL("sqlite:///students.db")
+
+# Create table
+# db.execute("CREATE TABLE students (first TEXT, middle TEXT, last TEXT, house TEXT, birth NUMERIC)")
 
 # Open csv file and read into memory
 with open(f"{sys.argv[1]}", 'r') as characters:
@@ -20,14 +22,16 @@ with open(f"{sys.argv[1]}", 'r') as characters:
     # Create DictReader
     reader = csv.DictReader(characters)
 
-    # Create new csv file to write to
-    with open("students.csv","w") as students:
-        writer = csv.writer(students)
-        # Write the headers
-        writer.writerow(["first", "middle", "last", "house", "birth"])
+    # Iterate over CSV file
+    for row in reader:
 
-        # Iterate over CSV file
-        for row in reader:
-            
-            writer.writerow([row["name"], row["house"], row["birth"]])
+        first = row["name"]
+        house = row["house"]
+        birth = row["birth"]
+
+        #writer.writerow([row["name"], row["house"], row["birth"]])
+        db.execute("INSERT INTO students(first, house, birth) VALUES(?, ?, ?)",
+            first, house, birth)
+        #db.execute("INSERT INTO students(first, middle, last, house, birth) VALUES(?, ?, ?, ?, ?)")
+
 
