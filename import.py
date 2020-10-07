@@ -37,7 +37,7 @@ with open(f"{sys.argv[1]}", 'r') as characters:
 
         count = len(fullName)
         if count == 2:
-            middle = ""
+            middle = None
             last = fullName[1]
         else:
             middle = fullName[1]
