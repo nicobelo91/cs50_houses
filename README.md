@@ -1,3 +1,6 @@
+# cs50 houses
+## Homework for problem set 7 for Harvard's CS50 class
+
 In `import.py`, write a program that imports data from a CSV spreadsheet.
 
 - Your program should accept the name of a CSV file as a command-line argument.
